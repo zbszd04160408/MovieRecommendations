@@ -71,9 +71,7 @@ elif option == 'Ratings Recommendation':
     id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
     st.header("Movie Recommendation for %s" % movie)
     poster_name = '%s.jpg' % id
-    st.write(poster_name)
     path = Path(__file__).parents[0] /'Data/movie_poster/total'/poster_name
-    st.write(path)
     if os.path.exists(path):
         image = Image.open(path)
         st.image(image, caption=movie)
@@ -93,9 +91,12 @@ elif option == 'Ratings Recommendation':
         st.write("Language: %s" % language)
         st.write("Director: %s" % director)
         st.write("Average Ratings: %.2f" % avg_votes)
-        if os.path.exists(Path(__file__).parents[0] /'Data/movie_poster/total/{i}.jpg'):
-            image = Image.open(Path(__file__).parents[0] /'Data/movie_poster/total/{i}.jpg')
+        pn = '%s.jpg' % i
+        p = Path(__file__).parents[0] /'Data/movie_poster/total'/pn
+        if os.path.exists(p):
+            image = Image.open(p)
             st.image(image, caption=movie)
+
 
 elif option == 'Content Recommendations':
     st.title("Recommendations Based on Content")
@@ -103,8 +104,10 @@ elif option == 'Content Recommendations':
     movie = st.sidebar.selectbox('Please select a movie:', movies)
     id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
     st.header("Movie Recommendation for %s" % movie)
-    if os.path.exists(Path(__file__).parents[0] /'Data/movie_poster/total/{id}.jpg'):
-        image = Image.open(Path(__file__).parents[0] /'Data/movie_poster/total/{id}.jpg')
+    poster_name = '%s.jpg' % id
+    path = Path(__file__).parents[0] /'Data/movie_poster/total'/poster_name
+    if os.path.exists(path):
+        image = Image.open(path)
         st.image(image, caption=movie)
     subdf, rec = get_5recommendation_yesKmeans(withVotes_kmodesKmeans_data, id)
     for i in rec:
@@ -122,6 +125,8 @@ elif option == 'Content Recommendations':
         st.write("Language: %s" % language)
         st.write("Director: %s" % director)
         st.write("Average Ratings: %.2f" % avg_votes)
-        if os.path.exists(Path(__file__).parents[0] /'Data/movie_poster/total/{i}.jpg'):
-            image = Image.open(Path(__file__).parents[0] /'Data/movie_poster/total/{i}.jpg')
+        pn = '%s.jpg' % i
+        p = Path(__file__).parents[0] /'Data/movie_poster/total'/pn
+        if os.path.exists(p):
+            image = Image.open(p)
             st.image(image, caption=movie)
