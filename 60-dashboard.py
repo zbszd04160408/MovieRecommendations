@@ -72,7 +72,7 @@ elif option == 'Ratings Recommendation':
     st.header("Movie Recommendation for %s" % movie)
     poster_name = '%s.jpg' % id
     st.write(poster_name)
-    path = Path(__file__).parents[0] /'Data/movie_poster'/poster_name
+    path = Path(__file__).parents[0] /'Data/movie_poster/total'/poster_name
     st.write(path)
     if os.path.exists(path):
         image = Image.open(path)
