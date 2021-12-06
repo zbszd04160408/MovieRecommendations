@@ -74,8 +74,8 @@ elif option == 'Ratings Recommendation':
     st.write(poster_name)
     path = Path(__file__).parents[0] /'Data/movie_poster'/poster_name
     st.write(path)
-    if os.path.exists():
-        image = Image.open(Path(__file__).parents[0] /'Data/movie_poster/total/{id}.jpg')
+    if os.path.exists(path):
+        image = Image.open(path)
         st.image(image, caption=movie)
     subdf, rec = get_5recommendation_yesKmeans(noVotes_kmodesKmeans_data, id)
     for i in rec:
