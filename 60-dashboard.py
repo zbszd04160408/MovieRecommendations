@@ -51,7 +51,7 @@ functions = ['Please Select', 'Ratings Recommendation', 'Content Recommendations
 option = st.sidebar.selectbox('Please select the function you would like to use:', functions)
 
 main_df_filepath = Path(__file__).parents[1] / 'data/IMDb_movies.csv'
-
+st.write(Path(__file__).parents)
 st.write(main_df_filepath)
 print(main_df_filepath)
 
