@@ -70,6 +70,7 @@ elif option == 'Ratings Recommendation':
     movie = st.sidebar.selectbox('Please select a movie:', movies)
     id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
     st.header("Movie Recommendation for %s" % movie)
+    st.write(Path(__file__).parents[0] /'Data/movie_poster/total/{id}.jpg')
     if os.path.exists(Path(__file__).parents[0] /'Data/movie_poster/total/{id}.jpg'):
         image = Image.open(Path(__file__).parents[0] /'Data/movie_poster/total/{id}.jpg')
         st.image(image, caption=movie)
