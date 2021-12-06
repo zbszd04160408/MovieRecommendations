@@ -70,7 +70,7 @@ elif option == 'Ratings Recommendation':
     movie = st.sidebar.selectbox('Please select a movie:', movies)
     id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
     st.header("Movie Recommendation for %s" % movie)
-    poster_name = '{id}.jpg'
+    poster_name = '%s.jpg' % id
     st.write(poster_name)
     path = Path(__file__).parents[0] /'Data/movie_poster'/poster_name
     st.write(path)
