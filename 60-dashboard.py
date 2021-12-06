@@ -70,8 +70,11 @@ elif option == 'Ratings Recommendation':
     movie = st.sidebar.selectbox('Please select a movie:', movies)
     id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
     st.header("Movie Recommendation for %s" % movie)
-    st.write(Path(__file__).parents[0] /'Data/movie_poster/total/{id}.jpg')
-    if os.path.exists(Path(__file__).parents[0] /'Data/movie_poster/total/{id}.jpg'):
+    poster_name = '{id}.jpg'
+    st.write(poster_name)
+    path = Path(__file__).parents[0] /'Data/movie_poster'/poster_name
+    st.write(path)
+    if os.path.exists():
         image = Image.open(Path(__file__).parents[0] /'Data/movie_poster/total/{id}.jpg')
         st.image(image, caption=movie)
     subdf, rec = get_5recommendation_yesKmeans(noVotes_kmodesKmeans_data, id)
