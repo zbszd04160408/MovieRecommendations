@@ -95,7 +95,7 @@ elif option == 'Ratings Recommendation':
         p = Path(__file__).parents[0] /'Data/movie_poster/total'/pn
         if os.path.exists(p):
             image = Image.open(p)
-            st.image(image, caption=movie)
+            st.image(image, caption=movie_title)
 
 
 elif option == 'Content Recommendations':
@@ -129,4 +129,4 @@ elif option == 'Content Recommendations':
         p = Path(__file__).parents[0] /'Data/movie_poster/total'/pn
         if os.path.exists(p):
             image = Image.open(p)
-            st.image(image, caption=movie)
+            st.image(image, caption=movie_title)
