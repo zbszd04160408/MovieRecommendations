@@ -51,10 +51,11 @@ functions = ['Please Select', 'Ratings Recommendation', 'Content Recommendations
 option = st.sidebar.selectbox('Please select the function you would like to use:', functions)
 
 main_df_filepath = Path(__file__).parents[0] / 'Data/IMDb_movies.csv'
-
+noVotes_kmodesKmeans_path = Path(__file__).parents[0] / 'Data/noVotes_kmode_kmeans_final_df.csv'
+withVotes_kmodesKmeans_path = Path(__file__).parents[0] / 'Data/yesVotes_kmode_kmeans_final_df.csv'
 main_df = pd.read_csv(main_df_filepath)
-noVotes_kmodesKmeans_data = pd.read_csv("./data/noVotes_kmode_kmeans_final_df.csv")
-withVotes_kmodesKmeans_data = pd.read_csv("./data/yesVotes_kmode_kmeans_final_df.csv")
+noVotes_kmodesKmeans_data = pd.read_csv(noVotes_kmodesKmeans_path)
+withVotes_kmodesKmeans_data = pd.read_csv(withVotes_kmodesKmeans_path)
 
 ids = noVotes_kmodesKmeans_data[['id']]
 merged_df = pd.merge(ids, main_df, left_on="id", right_on="imdb_title_id")
@@ -69,8 +70,8 @@ elif option == 'Ratings Recommendation':
     movie = st.sidebar.selectbox('Please select a movie:', movies)
     id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
     st.header("Movie Recommendation for %s" % movie)
-    if os.path.exists('./Data/movie_poster/total/%s.jpg' % id):
-        image = Image.open('./Data/movie_poster/total/%s.jpg' % id)
+    if os.path.exists(Path(__file__).parents[0] /'Data/movie_poster/total/%s.jpg' % id):
+        image = Image.open(Path(__file__).parents[0] /'Data/movie_poster/total/%s.jpg' % id)
         st.image(image, caption=movie)
     subdf, rec = get_5recommendation_yesKmeans(noVotes_kmodesKmeans_data, id)
     for i in rec:
@@ -88,8 +89,8 @@ elif option == 'Ratings Recommendation':
         st.write("Language: %s" % language)
         st.write("Director: %s" % director)
         st.write("Average Ratings: %.2f" % avg_votes)
-        if os.path.exists('./Data/movie_poster/total/%s.jpg' % i):
-            image = Image.open('./Data/movie_poster/total/%s.jpg' % i)
+        if os.path.exists(Path(__file__).parents[0] /'Data/movie_poster/total/%s.jpg' % i):
+            image = Image.open(Path(__file__).parents[0] /'Data/movie_poster/total/%s.jpg' % i)
             st.image(image, caption=movie)
 
 elif option == 'Content Recommendations':
@@ -98,8 +99,8 @@ elif option == 'Content Recommendations':
     movie = st.sidebar.selectbox('Please select a movie:', movies)
     id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
     st.header("Movie Recommendation for %s" % movie)
-    if os.path.exists('./Data/movie_poster/total/%s.jpg' % id):
-        image = Image.open('./Data/movie_poster/total/%s.jpg' % id)
+    if os.path.exists(Path(__file__).parents[0] /'Data/movie_poster/total/%s.jpg' % id):
+        image = Image.open(Path(__file__).parents[0] /'Data/movie_poster/total/%s.jpg' % id)
         st.image(image, caption=movie)
     subdf, rec = get_5recommendation_yesKmeans(withVotes_kmodesKmeans_data, id)
     for i in rec:
@@ -117,6 +118,6 @@ elif option == 'Content Recommendations':
         st.write("Language: %s" % language)
         st.write("Director: %s" % director)
         st.write("Average Ratings: %.2f" % avg_votes)
-        if os.path.exists('./Data/movie_poster/total/%s.jpg' % i):
-            image = Image.open('./Data/movie_poster/total/%s.jpg' % i)
+        if os.path.exists(Path(__file__).parents[0] /'Data/movie_poster/total/%s.jpg' % i):
+            image = Image.open(Path(__file__).parents[0] /'Data/movie_poster/total/%s.jpg' % i)
             st.image(image, caption=movie)
