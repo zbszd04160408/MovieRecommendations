@@ -50,13 +50,7 @@ functions = ['Please Select', 'Ratings Recommendation', 'Content Recommendations
 
 option = st.sidebar.selectbox('Please select the function you would like to use:', functions)
 
-main_df_filepath = Path(__file__).parents[1] / 'data/IMDb_movies.csv'
-st.write(Path(__file__).parents[0])
-st.write(Path(__file__).parents[1])
-st.write(Path(__file__).parents[2])
-st.write(Path(__file__).parents[3])
-st.write(main_df_filepath)
-print(main_df_filepath)
+main_df_filepath = Path(__file__).parents[0] / 'data/IMDb_movies.csv'
 
 main_df = pd.read_csv(main_df_filepath)
 noVotes_kmodesKmeans_data = pd.read_csv("./data/noVotes_kmode_kmeans_final_df.csv")
