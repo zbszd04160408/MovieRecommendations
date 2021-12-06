@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import scipy
 import numpy as np
 from scipy.spatial import distance
 from PIL import Image
