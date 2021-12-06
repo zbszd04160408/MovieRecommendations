@@ -1,0 +1,46 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Load packages
+
+```{r, message=FALSE}
+library(stargazer)
+library(readtext)
+library(antiword)
+library(tidyverse)
+library(ggplot2)
+library(textreadr)
+library(stringi)
+library(textclean)
+library(SemNetCleaner)
+library(readxl)
+library(janitor)
+
+library(patchwork)
+library(ggrepel)
+library(gghighlight)
+library(paletteer)
+library(ggExtra)
+library(ggbeeswarm)
+library(kableExtra)
+library(caret)
+library(randomForest)
+library(corrplot)
+library(lubridate)
+library(babynames)
+library(RecordLinkage)
+library(lmtest)
+library(sandwich)
+library(stringdist)
+```
+
+# Load data
+
+```{r}
+main = read_csv("Data/main.csv", col_types = cols(.default = "c"))
+View(main)
+```
+
+

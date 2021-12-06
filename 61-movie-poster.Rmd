@@ -1,0 +1,76 @@
+---
+title: "61-movie-poster"
+author: "Li Yuan"
+date: "12/5/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+# Read in data
+
+```{r}
+MovieGenre <- read_csv("Data/movie_poster/movie_poster_2/MovieGenre.csv")
+View(MovieGenre)
+MovieGenre = MovieGenre %>% mutate("id" = paste0("tt0", imdbId))
+
+
+noVotes_kmode_kmeans_final_df <- read_csv("Data/noVotes_kmode_kmeans_final_df.csv")
+View(noVotes_kmode_kmeans_final_df)
+
+train <- read_csv("Data/movie_poster/Multi_Label_dataset/train.csv") %>% rename("id" = Id)
+View(train)
+```
+
+# Find all matched id in noVote dataset
+
+```{r}
+id_link = noVotes_kmode_kmeans_final_df %>%
+  inner_join(MovieGenre, by = "id") %>% 
+  anti_join(train, by = "id") %>%
+  select(id, Poster)
+```
+
+# Download all image 
+
+```{r}
+for(i in 1:nrow(id_link)){
+  path = id_link$Poster[i]
+  tryCatch({
+    download.file(url = path, 
+    destfile = paste0("./Data/movie_poster/movie_poster_2/movies/", 
+    MovieGenre$id[i], ".jpg"),
+    mode = "wb", quiet = TRUE)
+}, error=function(e){})
+}
+```
+
+# Find all matched id in train
+
+```{r}
+matched_id = noVotes_kmode_kmeans_final_df %>%
+  inner_join(train, by = "id") %>% 
+  select(id)
+```
+
+# Select all images used by above list
+
+```{r}
+all_list = list.files(path = "./Data/movie_poster/Multi_Label_dataset/Images")
+#strsplit(all_list, split = ".", fixed = TRUE)[[1]]
+
+for(i in 1:nrow(matched_id)){
+  name = paste0(matched_id[i, ] %>% pull(id), ".jpg")
+  if(name %in% all_list){
+    file.copy(from = paste0("./Data/movie_poster/Multi_Label_dataset/Images/", name),
+              to = paste0("./Data/movie_poster/Multi_Label_dataset/matched/", name))
+  }
+}
+```
+
