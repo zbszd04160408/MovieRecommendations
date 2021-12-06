@@ -4,6 +4,7 @@ import numpy as np
 from scipy.spatial import distance
 from PIL import Image
 import os.path
+from pathlib import Path
 
 def get_5recommendation_yesKmeans(df, movie_id):
     """
@@ -49,7 +50,11 @@ functions = ['Please Select', 'Ratings Recommendation', 'Content Recommendations
 
 option = st.sidebar.selectbox('Please select the function you would like to use:', functions)
 
-main_df = pd.read_csv("./data/IMDb_movies.csv")
+main_df_filepath = Path(__file__).parents[1] / 'data/IMDb_movies.csv'
+
+
+
+main_df = pd.read_csv(main_df_filepath)
 noVotes_kmodesKmeans_data = pd.read_csv("./data/noVotes_kmode_kmeans_final_df.csv")
 withVotes_kmodesKmeans_data = pd.read_csv("./data/yesVotes_kmode_kmeans_final_df.csv")
 
