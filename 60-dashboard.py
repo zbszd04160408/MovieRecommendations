@@ -60,7 +60,8 @@ withVotes_kmodesKmeans_data = pd.read_csv(withVotes_kmodesKmeans_path)
 ids = noVotes_kmodesKmeans_data[['id']]
 merged_df = pd.merge(ids, main_df, left_on="id", right_on="imdb_title_id")
 movies = np.array(merged_df[['title']].values.tolist()).squeeze()
-np.insert(movies, 0, "Please Select A Movie", axis=0)
+movies = np.insert(movies, 0, "Please Select A Movie", axis=0)
+st.write(movies[0])
 
 if option == 'Please Select':
     st.title("Welcome to our Movie Recommendation System!")
