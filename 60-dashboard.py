@@ -61,7 +61,6 @@ ids = noVotes_kmodesKmeans_data[['id']]
 merged_df = pd.merge(ids, main_df, left_on="id", right_on="imdb_title_id")
 movies = np.array(merged_df[['title']].values.tolist()).squeeze()
 movies = np.insert(movies, 0, "Please Select A Movie", axis=0)
-st.write(movies[0])
 
 if option == 'Please Select':
     st.title("Welcome to our Movie Recommendation System!")
@@ -70,65 +69,67 @@ elif option == 'Ratings Recommendation':
     st.title("Recommendations Based on Ratings")
     st.write("Ranked by the distance from the selected movie. ")
     movie = st.sidebar.selectbox('Please select a movie:', movies)
-    id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
-    st.header("Movie Recommendations for %s" % movie)
-    poster_name = '%s.jpg' % id
-    path = Path(__file__).parents[0] /'Data/movie_poster/total'/poster_name
-    if os.path.exists(path):
-        image = Image.open(path)
-        st.image(image, caption=movie)
-    subdf, rec = get_5recommendation_yesKmeans(noVotes_kmodesKmeans_data, id)
-    for i in rec:
-        movie_title = main_df[main_df['imdb_title_id'] == i]['title'].values[0]
-        year = main_df[main_df['imdb_title_id'] == i]['year'].values[0]
-        genre = main_df[main_df['imdb_title_id'] == i]['genre'].values[0]
-        country = main_df[main_df['imdb_title_id'] == i]['country'].values[0]
-        language = main_df[main_df['imdb_title_id'] == i]['language'].values[0]
-        director = main_df[main_df['imdb_title_id'] == i]['director'].values[0]
-        avg_votes = main_df[main_df['imdb_title_id'] == i]['avg_vote'].values[0]
-        st.subheader(movie_title)
-        st.write("Year: %s"%year)
-        st.write("Genre: %s" % genre)
-        st.write("Country: %s" % country)
-        st.write("Language: %s" % language)
-        st.write("Director: %s" % director)
-        st.write("Average Ratings: %.2f" % avg_votes)
-        pn = '%s.jpg' % i
-        p = Path(__file__).parents[0] /'Data/movie_poster/total'/pn
-        if os.path.exists(p):
-            image = Image.open(p)
-            st.image(image, caption=movie_title)
+    if movie != "Please Select A Movie":
+        id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
+        st.header("Movie Recommendations for %s" % movie)
+        poster_name = '%s.jpg' % id
+        path = Path(__file__).parents[0] /'Data/movie_poster/total'/poster_name
+        if os.path.exists(path):
+            image = Image.open(path)
+            st.image(image, caption=movie)
+        subdf, rec = get_5recommendation_yesKmeans(noVotes_kmodesKmeans_data, id)
+        for i in rec:
+            movie_title = main_df[main_df['imdb_title_id'] == i]['title'].values[0]
+            year = main_df[main_df['imdb_title_id'] == i]['year'].values[0]
+            genre = main_df[main_df['imdb_title_id'] == i]['genre'].values[0]
+            country = main_df[main_df['imdb_title_id'] == i]['country'].values[0]
+            language = main_df[main_df['imdb_title_id'] == i]['language'].values[0]
+            director = main_df[main_df['imdb_title_id'] == i]['director'].values[0]
+            avg_votes = main_df[main_df['imdb_title_id'] == i]['avg_vote'].values[0]
+            st.subheader(movie_title)
+            st.write("Year: %s"%year)
+            st.write("Genre: %s" % genre)
+            st.write("Country: %s" % country)
+            st.write("Language: %s" % language)
+            st.write("Director: %s" % director)
+            st.write("Average Ratings: %.2f" % avg_votes)
+            pn = '%s.jpg' % i
+            p = Path(__file__).parents[0] /'Data/movie_poster/total'/pn
+            if os.path.exists(p):
+                image = Image.open(p)
+                st.image(image, caption=movie_title)
 
 
 elif option == 'Content Recommendations':
     st.title("Recommendations Based on Content")
     st.write("Ranked by the distance from the selected movie. ")
     movie = st.sidebar.selectbox('Please select a movie:', movies)
-    id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
-    st.header("Movie Recommendations for %s" % movie)
-    poster_name = '%s.jpg' % id
-    path = Path(__file__).parents[0] /'Data/movie_poster/total'/poster_name
-    if os.path.exists(path):
-        image = Image.open(path)
-        st.image(image, caption=movie)
-    subdf, rec = get_5recommendation_yesKmeans(withVotes_kmodesKmeans_data, id)
-    for i in rec:
-        movie_title = main_df[main_df['imdb_title_id'] == i]['title'].values[0]
-        year = main_df[main_df['imdb_title_id'] == i]['year'].values[0]
-        genre = main_df[main_df['imdb_title_id'] == i]['genre'].values[0]
-        country = main_df[main_df['imdb_title_id'] == i]['country'].values[0]
-        language = main_df[main_df['imdb_title_id'] == i]['language'].values[0]
-        director = main_df[main_df['imdb_title_id'] == i]['director'].values[0]
-        avg_votes = main_df[main_df['imdb_title_id'] == i]['avg_vote'].values[0]
-        st.subheader(movie_title)
-        st.write("Year: %s"%year)
-        st.write("Genre: %s" % genre)
-        st.write("Country: %s" % country)
-        st.write("Language: %s" % language)
-        st.write("Director: %s" % director)
-        st.write("Average Ratings: %.2f" % avg_votes)
-        pn = '%s.jpg' % i
-        p = Path(__file__).parents[0] /'Data/movie_poster/total'/pn
-        if os.path.exists(p):
-            image = Image.open(p)
-            st.image(image, caption=movie_title)
+    if movie != "Please Select A Movie":
+        id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
+        st.header("Movie Recommendations for %s" % movie)
+        poster_name = '%s.jpg' % id
+        path = Path(__file__).parents[0] /'Data/movie_poster/total'/poster_name
+        if os.path.exists(path):
+            image = Image.open(path)
+            st.image(image, caption=movie)
+        subdf, rec = get_5recommendation_yesKmeans(withVotes_kmodesKmeans_data, id)
+        for i in rec:
+            movie_title = main_df[main_df['imdb_title_id'] == i]['title'].values[0]
+            year = main_df[main_df['imdb_title_id'] == i]['year'].values[0]
+            genre = main_df[main_df['imdb_title_id'] == i]['genre'].values[0]
+            country = main_df[main_df['imdb_title_id'] == i]['country'].values[0]
+            language = main_df[main_df['imdb_title_id'] == i]['language'].values[0]
+            director = main_df[main_df['imdb_title_id'] == i]['director'].values[0]
+            avg_votes = main_df[main_df['imdb_title_id'] == i]['avg_vote'].values[0]
+            st.subheader(movie_title)
+            st.write("Year: %s"%year)
+            st.write("Genre: %s" % genre)
+            st.write("Country: %s" % country)
+            st.write("Language: %s" % language)
+            st.write("Director: %s" % director)
+            st.write("Average Ratings: %.2f" % avg_votes)
+            pn = '%s.jpg' % i
+            p = Path(__file__).parents[0] /'Data/movie_poster/total'/pn
+            if os.path.exists(p):
+                image = Image.open(p)
+                st.image(image, caption=movie_title)
