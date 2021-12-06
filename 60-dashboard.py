@@ -52,6 +52,9 @@ option = st.sidebar.selectbox('Please select the function you would like to use:
 
 main_df_filepath = Path(__file__).parents[0] / 'data/IMDb_movies.csv'
 
+p = Path(__file__).parents[0]
+st.write([x for x in p.iterdir()])
+
 main_df = pd.read_csv(main_df_filepath)
 noVotes_kmodesKmeans_data = pd.read_csv("./data/noVotes_kmode_kmeans_final_df.csv")
 withVotes_kmodesKmeans_data = pd.read_csv("./data/yesVotes_kmode_kmeans_final_df.csv")
