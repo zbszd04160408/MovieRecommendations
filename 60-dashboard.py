@@ -60,7 +60,7 @@ withVotes_kmodesKmeans_data = pd.read_csv(withVotes_kmodesKmeans_path)
 ids = noVotes_kmodesKmeans_data[['id']]
 merged_df = pd.merge(ids, main_df, left_on="id", right_on="imdb_title_id")
 movies = np.array(merged_df[['title']].values.tolist()).squeeze()
-movies = np.insert(movies, 0, "Please Select A Movie", axis=0)
+movies = np.insert(movies, 0, "Please select a movie", axis=0)
 
 if option == 'Please Select':
     st.title("Welcome to our Movie Recommendation System!")
@@ -69,7 +69,7 @@ elif option == 'Ratings Recommendation':
     st.title("Recommendations Based on Ratings")
     st.write("Ranked by the distance from the selected movie. ")
     movie = st.sidebar.selectbox('Please select a movie:', movies)
-    if movie != "Please Select A Movie":
+    if movie != "Please select a movie":
         id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
         st.header("Movie Recommendations for %s" % movie)
         poster_name = '%s.jpg' % id
@@ -104,7 +104,7 @@ elif option == 'Content Recommendations':
     st.title("Recommendations Based on Content")
     st.write("Ranked by the distance from the selected movie. ")
     movie = st.sidebar.selectbox('Please select a movie:', movies)
-    if movie != "Please Select A Movie":
+    if movie != "Please select a movie":
         id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
         st.header("Movie Recommendations for %s" % movie)
         poster_name = '%s.jpg' % id
