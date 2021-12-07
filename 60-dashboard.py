@@ -75,7 +75,7 @@ elif option == 'Ratings Recommendation':
     movies = np.insert(movies, 0, "Please select a movie", axis=0)
     movie = st.sidebar.selectbox('Please select a movie:', movies)
     if movie != "Please select a movie":
-        id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
+        id = noVotesMerged[noVotesMerged['title'] == movie]['imdb_title_id'].values[0]
         st.write(id)
         st.header("Movie Recommendations for %s" % movie)
         poster_name = '%s.jpg' % id
