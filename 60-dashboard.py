@@ -85,13 +85,13 @@ elif option == 'Ratings Recommendation':
             st.image(image, caption=movie)
         subdf, rec = get_5recommendation_yesKmeans(noVotes_kmodesKmeans_data, id)
         for i in rec:
-            movie_title = main_df[main_df['imdb_title_id'] == i]['title'].values[0]
-            year = main_df[main_df['imdb_title_id'] == i]['year'].values[0]
-            genre = main_df[main_df['imdb_title_id'] == i]['genre'].values[0]
-            country = main_df[main_df['imdb_title_id'] == i]['country'].values[0]
-            language = main_df[main_df['imdb_title_id'] == i]['language'].values[0]
-            director = main_df[main_df['imdb_title_id'] == i]['director'].values[0]
-            avg_votes = main_df[main_df['imdb_title_id'] == i]['avg_vote'].values[0]
+            movie_title = noVotesMerged[noVotesMerged['imdb_title_id'] == i]['title'].values[0]
+            year = noVotesMerged[noVotesMerged['imdb_title_id'] == i]['year'].values[0]
+            genre = noVotesMerged[noVotesMerged['imdb_title_id'] == i]['genre'].values[0]
+            country = noVotesMerged[noVotesMerged['imdb_title_id'] == i]['country'].values[0]
+            language = noVotesMerged[noVotesMerged['imdb_title_id'] == i]['language'].values[0]
+            director = noVotesMerged[noVotesMerged['imdb_title_id'] == i]['director'].values[0]
+            avg_votes = noVotesMerged[noVotesMerged['imdb_title_id'] == i]['avg_vote'].values[0]
             st.subheader(movie_title)
             st.write("Year: %s"%year)
             st.write("Genre: %s" % genre)
@@ -113,7 +113,7 @@ elif option == 'Content Recommendations':
     movies = np.insert(movies, 0, "Please select a movie", axis=0)
     movie = st.sidebar.selectbox('Please select a movie:', movies)
     if movie != "Please select a movie":
-        id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
+        id = withVotesMerged[withVotesMerged['title'] == movie]['imdb_title_id'].values[0]
         st.header("Movie Recommendations for %s" % movie)
         poster_name = '%s.jpg' % id
         path = Path(__file__).parents[0] /'Data/movie_poster/total'/poster_name
@@ -122,13 +122,13 @@ elif option == 'Content Recommendations':
             st.image(image, caption=movie)
         subdf, rec = get_5recommendation_yesKmeans(withVotes_kmodesKmeans_data, id)
         for i in rec:
-            movie_title = main_df[main_df['imdb_title_id'] == i]['title'].values[0]
-            year = main_df[main_df['imdb_title_id'] == i]['year'].values[0]
-            genre = main_df[main_df['imdb_title_id'] == i]['genre'].values[0]
-            country = main_df[main_df['imdb_title_id'] == i]['country'].values[0]
-            language = main_df[main_df['imdb_title_id'] == i]['language'].values[0]
-            director = main_df[main_df['imdb_title_id'] == i]['director'].values[0]
-            avg_votes = main_df[main_df['imdb_title_id'] == i]['avg_vote'].values[0]
+            movie_title = withVotesMerged[withVotesMerged['imdb_title_id'] == i]['title'].values[0]
+            year = withVotesMerged[withVotesMerged['imdb_title_id'] == i]['year'].values[0]
+            genre = withVotesMerged[withVotesMerged['imdb_title_id'] == i]['genre'].values[0]
+            country = withVotesMerged[withVotesMerged['imdb_title_id'] == i]['country'].values[0]
+            language = withVotesMerged[withVotesMerged['imdb_title_id'] == i]['language'].values[0]
+            director = withVotesMerged[withVotesMerged['imdb_title_id'] == i]['director'].values[0]
+            avg_votes = withVotesMerged[withVotesMerged['imdb_title_id'] == i]['avg_vote'].values[0]
             st.subheader(movie_title)
             st.write("Year: %s"%year)
             st.write("Genre: %s" % genre)
