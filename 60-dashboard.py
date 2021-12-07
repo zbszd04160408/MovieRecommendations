@@ -58,10 +58,10 @@ noVotes_kmodesKmeans_data = pd.read_csv(noVotes_kmodesKmeans_path)
 withVotes_kmodesKmeans_data = pd.read_csv(withVotes_kmodesKmeans_path)
 
 noVotesids = noVotes_kmodesKmeans_data[['id']]
-noVotesMerged = pd.merge(noVotesids, main_df, left_on="id", right_on="imdb_title_id")
+noVotesMerged = pd.merge(noVotesids, main_df, left_on="id", right_on="imdb_title_id", how="inner")
 
 withVotesids = withVotes_kmodesKmeans_data[['id']]
-withVotesMerged = pd.merge(withVotesids, main_df, left_on="id", right_on="imdb_title_id")
+withVotesMerged = pd.merge(withVotesids, main_df, left_on="id", right_on="imdb_title_id", how="inner")
 
 
 
