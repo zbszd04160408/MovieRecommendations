@@ -76,7 +76,6 @@ elif option == 'Ratings Recommendation':
     movie = st.sidebar.selectbox('Please select a movie:', movies)
     if movie != "Please select a movie":
         id = noVotesMerged[noVotesMerged['title'] == movie]['imdb_title_id'].values[0]
-        st.write(id)
         st.header("Movie Recommendations for %s" % movie)
         poster_name = '%s.jpg' % id
         path = Path(__file__).parents[0] /'Data/movie_poster/total'/poster_name
