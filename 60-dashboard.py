@@ -57,10 +57,13 @@ main_df = pd.read_csv(main_df_filepath)
 noVotes_kmodesKmeans_data = pd.read_csv(noVotes_kmodesKmeans_path)
 withVotes_kmodesKmeans_data = pd.read_csv(withVotes_kmodesKmeans_path)
 
-ids = noVotes_kmodesKmeans_data[['id']]
-merged_df = pd.merge(ids, main_df, left_on="id", right_on="imdb_title_id")
-movies = np.array(merged_df[['title']].values.tolist()).squeeze()
-movies = np.insert(movies, 0, "Please select a movie", axis=0)
+noVotesids = noVotes_kmodesKmeans_data[['id']]
+noVotesMerged = pd.merge(noVotesids, main_df, left_on="id", right_on="imdb_title_id")
+
+withVotesids = withVotes_kmodesKmeans_data[['id']]
+withVotesMerged = pd.merge(withVotesids, main_df, left_on="id", right_on="imdb_title_id")
+
+
 
 if option == 'Please Select':
     st.title("Welcome to our Movie Recommendation System!")
@@ -68,6 +71,8 @@ if option == 'Please Select':
 elif option == 'Ratings Recommendation':
     st.title("Recommendations Based on Ratings")
     st.write("Ranked by the distance from the selected movie. ")
+    movies = np.array(noVotesMerged[['title']].values.tolist()).squeeze()
+    movies = np.insert(movies, 0, "Please select a movie", axis=0)
     movie = st.sidebar.selectbox('Please select a movie:', movies)
     if movie != "Please select a movie":
         id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
@@ -103,6 +108,8 @@ elif option == 'Ratings Recommendation':
 elif option == 'Content Recommendations':
     st.title("Recommendations Based on Content")
     st.write("Ranked by the distance from the selected movie. ")
+    movies = np.array(withVotesMerged[['title']].values.tolist()).squeeze()
+    movies = np.insert(movies, 0, "Please select a movie", axis=0)
     movie = st.sidebar.selectbox('Please select a movie:', movies)
     if movie != "Please select a movie":
         id = main_df[main_df['title'] == movie]['imdb_title_id'].values[0]
